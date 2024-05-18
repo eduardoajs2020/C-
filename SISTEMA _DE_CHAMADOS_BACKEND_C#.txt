@@ -1,0 +1,109 @@
+Aqui está um exemplo básico de um modelo de sistema de gestão de chamados em C#:
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+namespace SistemaGestaoChamados
+{
+    public class Chamado
+    {
+        public int Numero { get; set; }
+        public string Assunto { get; set; }
+        public string Descricao { get; set; }
+        public DateTime DataAbertura { get; set; }
+        public DateTime? DataFechamento { get; set; }
+        public string Status { get; set; }
+
+        public Chamado(int numero, string assunto, string descricao)
+        {
+            Numero = numero;
+            Assunto = assunto;
+            Descricao = descricao;
+            DataAbertura = DateTime.Now;
+            Status = "Aberto";
+        }
+    }
+
+    public class SistemaGestaoChamados
+    {
+        private List<Chamado> chamados;
+
+        public SistemaGestaoChamados()
+        {
+            chamados = new List<Chamado>();
+        }
+
+        public void AbrirChamado(int numero, string assunto, string descricao)
+        {
+            Chamado chamado = new Chamado(numero, assunto, descricao);
+            chamados.Add(chamado);
+            Console.WriteLine($"Chamado {chamado.Numero} aberto com sucesso.");
+        }
+
+        public void FecharChamado(int numero)
+        {
+            Chamado chamado = chamados.Find(c => c.Numero == numero);
+            if (chamado != null)
+            {
+                chamado.DataFechamento = DateTime.Now;
+                chamado.Status = "Fechado";
+                Console.WriteLine($"Chamado {chamado.Numero} fechado com sucesso.");
+            }
+            else
+            {
+                Console.WriteLine($"Chamado {numero} não encontrado.");
+            }
+        }
+
+        public void ListarChamados()
+        {
+            Console.WriteLine("Chamados Abertos:");
+            foreach (Chamado chamado in chamados)
+            {
+                if (chamado.Status == "Aberto")
+                {
+                    Console.WriteLine($"Número: {chamado.Numero}, Assunto: {chamado.Assunto}, Data Abertura: {chamado.DataAbertura}");
+                }
+            }
+
+            Console.WriteLine("\nChamados Fechados:");
+            foreach (Chamado chamado in chamados)
+            {
+                if (chamado.Status == "Fechado")
+                {
+                    Console.WriteLine($"Número: {chamado.Numero}, Assunto: {chamado.Assunto}, Data Abertura: {chamado.DataAbertura}, Data Fechamento: {chamado.DataFechamento}");
+                }
+            }
+        }
+    }
+
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            SistemaGestaoChamados sistema = new SistemaGestaoChamados();
+
+            sistema.AbrirChamado(1, "Problema no sistema", "O sistema está apresentando um erro ao salvar os dados.");
+            sistema.AbrirChamado(2, "Solicitação de suporte", "É necessário configurar um novo usuário no sistema.");
+            sistema.AbrirChamado(3, "Falha no servidor", "O servidor está inacessível.");
+
+            sistema.FecharChamado(2);
+
+            sistema.ListarChamados();
+
+            Console.ReadLine();
+        }
+    }
+}
+```
+
+Neste exemplo, o sistema de gestão de chamados é implementado usando classes em C#. A classe `Chamado` representa um chamado individual,
+
+ com propriedades como número, assunto, descrição, data de abertura, data de fechamento e status.
+
+A classe `SistemaGestaoChamados` é responsável por gerenciar os chamados. Ela possui métodos para abrir um novo chamado, fechar um chamado existente e listar todos os chamados, separando os abertos dos fechados.
+
+No método `Main`, um objeto `SistemaGestaoChamados` é criado e são realizadas algumas operações de exemplo, como abrir chamados, fechar um chamado e listar todos os chamados.
+
+Este é apenas um exemplo básico para ilustrar a estrutura do sistema de gestão de chamados em C#. Você pode expandir e personalizar esse modelo de acordo com as necessidades específicas do seu projeto.

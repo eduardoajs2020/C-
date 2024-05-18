@@ -1,0 +1,5 @@
+Criar novo arquivo em c#:
+
+dotnet new console //cria novo programa de terminal
+
+dotnet run     //roda o programa .net c#

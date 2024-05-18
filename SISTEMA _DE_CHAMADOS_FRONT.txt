@@ -1,0 +1,196 @@
+Aqui está um exemplo básico de um modelo de frontend para o site do sistema de gestão de chamados:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sistema de Gestão de Chamados</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .chamado-form {
+            margin-bottom: 20px;
+        }
+
+        .chamado-item {
+            background-color: #f4f4f4;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .chamado-item .numero {
+            font-weight: bold;
+        }
+
+        .chamado-item .assunto {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .chamado-item .data {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .fechar-chamado-form {
+            margin-top: 20px;
+        }
+
+        .success-message {
+            color: green;
+            margin-bottom: 10px;
+        }
+
+        .error-message {
+            color: red;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Sistema de Gestão de Chamados</h1>
+    </div>
+
+    <div class="container">
+        <h2>Abrir Chamado</h2>
+        <form id="chamadoForm" class="chamado-form">
+            <label for="numeroInput">Número:</label>
+            <input type="text" id="numeroInput" required><br>
+
+            <label for="assuntoInput">Assunto:</label>
+            <input type="text" id="assuntoInput" required><br>
+
+            <label for="descricaoInput">Descrição:</label>
+            <textarea id="descricaoInput" required></textarea><br>
+
+            <button type="submit">Abrir Chamado</button>
+        </form>
+
+        <div id="chamadosList">
+            <h2>Chamados Abertos</h2>
+        </div>
+
+        <h2>Fechar Chamado</h2>
+        <form id="fecharChamadoForm" class="fechar-chamado-form">
+            <label for="numeroFecharInput">Número do Chamado:</label>
+            <input type="text" id="numeroFecharInput" required><br>
+
+            <button type="submit">Fechar Chamado</button>
+        </form>
+
+        <div id="fecharChamadoMessage"></div>
+    </div>
+
+    <script>
+        // Função para lidar com a submissão do formulário de abrir chamado
+        document.getElementById('chamadoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var numero = document.getElementById('numeroInput').value;
+            var assunto = document.getElementById('assuntoInput').value;
+            var descricao = document.getElementById('descricaoInput').value;
+
+            // Aqui você pode enviar os dados do chamado para o backend (usando AJAX, fetch, etc.)
+            // para processar e salvar o chamado no banco de dados
+
+            // Após o processamento bem-sucedido, você pode exibir
+
+ uma mensagem de sucesso
+            var successMessage = document.createElement('div');
+            successMessage.classList.add('success-message');
+            successMessage.textContent = 'Chamado aberto com sucesso.';
+            document.getElementById('chamadosList').appendChild(successMessage);
+
+            // Limpar os campos do formulário
+            document.getElementById('numeroInput').value = '';
+            document.getElementById('assuntoInput').value = '';
+            document.getElementById('descricaoInput').value = '';
+        });
+
+        // Função para lidar com a submissão do formulário de fechar chamado
+        document.getElementById('fecharChamadoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var numeroFechar = document.getElementById('numeroFecharInput').value;
+
+            // Aqui você pode enviar o número do chamado para o backend (usando AJAX, fetch, etc.)
+            // para fechar o chamado correspondente no banco de dados
+
+            // Após o processamento bem-sucedido, você pode exibir uma mensagem de sucesso
+            var successMessage = document.createElement('div');
+            successMessage.classList.add('success-message');
+            successMessage.textContent = 'Chamado fechado com sucesso.';
+            document.getElementById('fecharChamadoMessage').appendChild(successMessage);
+
+            // Limpar o campo do formulário
+            document.getElementById('numeroFecharInput').value = '';
+        });
+
+        // Função para exibir a lista de chamados abertos (você precisará recuperar os dados do backend)
+        function exibirChamadosAbertos() {
+            var chamadosList = document.getElementById('chamadosList');
+            chamadosList.innerHTML = '';
+
+            // Aqui você pode recuperar os chamados abertos do backend e exibi-los na lista
+            // Você pode usar um loop para iterar sobre os chamados e criar elementos HTML para exibi-los
+            // Exemplo:
+            /*
+            var chamadosAbertos = [
+                { numero: 1, assunto: 'Problema no sistema', dataAbertura: '2022-01-01 10:00:00' },
+                { numero: 2, assunto: 'Solicitação de suporte', dataAbertura: '2022-01-02 14:30:00' },
+                { numero: 3, assunto: 'Falha no servidor', dataAbertura: '2022-01-03 09:15:00' }
+            ];
+
+            for (var i = 0; i < chamadosAbertos.length; i++) {
+                var chamado = chamadosAbertos[i];
+
+                var chamadoItem = document.createElement('div');
+                chamadoItem.classList.add('chamado-item');
+
+                var numero = document.createElement('span');
+                numero.classList.add('numero');
+                numero.textContent = 'Número: ' + chamado.numero;
+
+                var assunto = document.createElement('div');
+                assunto.classList.add('assunto');
+                assunto.textContent = 'Assunto: ' + chamado.assunto;
+
+                var data = document.createElement('div');
+                data.classList.add('data');
+                data.textContent = 'Data Abertura: ' + chamado.dataAbertura;
+
+                chamadoItem.appendChild(numero);
+                chamadoItem.appendChild(assunto);
+                chamadoItem.appendChild(data);
+
+                chamadosList.appendChild(chamadoItem);
+            }
+            */
+        }
+
+        // Chamar a função para exibir a lista de chamados abertos ao carregar a página
+        exibirChamadosAbertos();
+    </script>
+</body>
+</html>
+```
+
+Este é apenas um exemplo básico de frontend em HTML e JavaScript para o sistema

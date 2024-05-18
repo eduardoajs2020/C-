@@ -1,0 +1,14 @@
+C:\PROJETOS DEV\C#\dio_fundamentos\bin\Debug\net8.0\dio_fundamentos.exe
+C:\PROJETOS DEV\C#\dio_fundamentos\bin\Debug\net8.0\dio_fundamentos.deps.json
+C:\PROJETOS DEV\C#\dio_fundamentos\bin\Debug\net8.0\dio_fundamentos.runtimeconfig.json
+C:\PROJETOS DEV\C#\dio_fundamentos\bin\Debug\net8.0\dio_fundamentos.dll
+C:\PROJETOS DEV\C#\dio_fundamentos\bin\Debug\net8.0\dio_fundamentos.pdb
+C:\PROJETOS DEV\C#\dio_fundamentos\obj\Debug\net8.0\dio_fundamentos.GeneratedMSBuildEditorConfig.editorconfig
+C:\PROJETOS DEV\C#\dio_fundamentos\obj\Debug\net8.0\dio_fundamentos.AssemblyInfoInputs.cache
+C:\PROJETOS DEV\C#\dio_fundamentos\obj\Debug\net8.0\dio_fundamentos.AssemblyInfo.cs
+C:\PROJETOS DEV\C#\dio_fundamentos\obj\Debug\net8.0\dio_fundamentos.csproj.CoreCompileInputs.cache
+C:\PROJETOS DEV\C#\dio_fundamentos\obj\Debug\net8.0\dio_fundamentos.dll
+C:\PROJETOS DEV\C#\dio_fundamentos\obj\Debug\net8.0\refint\dio_fundamentos.dll
+C:\PROJETOS DEV\C#\dio_fundamentos\obj\Debug\net8.0\dio_fundamentos.pdb
+C:\PROJETOS DEV\C#\dio_fundamentos\obj\Debug\net8.0\dio_fundamentos.genruntimeconfig.cache
+C:\PROJETOS DEV\C#\dio_fundamentos\obj\Debug\net8.0\ref\dio_fundamentos.dll
