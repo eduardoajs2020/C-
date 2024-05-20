@@ -8,9 +8,26 @@ namespace ExemploExplorando.Models
     public class Pessoa
     {
 
+         //Construtor sem argumentos
+        public Pessoa()
+        {
+           
+        }
+
+        //Construtor com argumentos
+        public Pessoa(string nome, string sobrenome)
+        {
+            Nome = nome;
+            Sobrenome = sobrenome;
+        }
+
+
+        //Objeto derivado
         private string _nome;
         private int _idade;
 
+
+        //Propriedades
         public string Nome 
         { 
             get=> _nome.ToUpper(); //Body Expression (sustitui {return _nome.ToUpper()})
@@ -57,6 +74,7 @@ namespace ExemploExplorando.Models
             }
         }
 
+        //Método Apresentar
         public void Apresentar()
         {
             Console.WriteLine($"Nome: {NomeCompleto}, Idade: {Idade}");
