@@ -21,6 +21,13 @@ namespace ExemploExplorando.Models
             Sobrenome = sobrenome;
         }
 
+        //Desconstrutor
+        public void Deconstruct(out string nome, out string sobrenome)
+        {
+            nome = Nome;
+            sobrenome = Sobrenome;
+        }
+
 
         //Objeto derivado
         private string _nome;
