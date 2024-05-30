@@ -1,0 +1,196 @@
+Introdução aos Testes Unitários em .NET Web API
+#.NET#Testes unitários#API
+29/05/2024 12:40
+
+Álvaro Soares
+
+Os testes unitários são cruciais para garantir que os componentes individuais de uma aplicação funcionem conforme o esperado. Quando se trata de uma Web API desenvolvida com .NET, testar os controladores e serviços que compõem a API pode ajudar a detectar e corrigir erros antes que eles cheguem à produção. Neste artigo, vamos explorar como escrever testes unitários para uma Web API em .NET usando o framework de testes xUnit e o pacote Moq para criar mocks.
+
+
+
+Configurando o Ambiente de Teste
+
+Para começar, certifique-se de que você tenha o seguinte instalado:
+
+
+
+-Visual Studio
+
+-.NET SDK
+
+Vamos assumir que você já tenha uma Web API básica criada. Vamos criar um projeto de teste para essa API.
+
+
+
+Adicionar um Projeto de Teste:
+
+
+
+No Visual Studio, clique com o botão direito na solução e selecione "Adicionar" > "Novo Projeto".
+
+-Escolha "xUnit Test Project" e nomeie-o como MinhaApi.Tests.
+
+-Adicionar Referências Necessárias:
+
+
+
+No projeto MinhaApi.Tests, adicione uma referência ao projeto principal MinhaApi.
+
+Instale os pacotes xUnit e Moq via NuGet:
+
+dotnet add package xunit
+dotnet add package moq
+Escrevendo Testes Unitários para um Controlador
+Vamos considerar um exemplo simples de um controlador de produtos.
+
+
+
+Controlador de Produtos:
+
+// Projeto principal: MinhaApi
+using Microsoft.AspNetCore.Mvc;
+using MinhaApi.Models;
+using MinhaApi.Services;
+
+
+namespace MinhaApi.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ProdutosController : ControllerBase
+    {
+        private readonly IProdutoService _produtoService;
+
+
+        public ProdutosController(IProdutoService produtoService)
+        {
+            _produtoService = produtoService;
+        }
+
+
+        [HttpGet("{id}")]
+        public ActionResult<Produto> GetProduto(int id)
+        {
+            var produto = _produtoService.GetProdutoById(id);
+
+
+            if (produto == null)
+            {
+                return NotFound();
+            }
+
+
+            return Ok(produto);
+        }
+    }
+}
+Serviço de Produto:
+
+// Projeto principal: MinhaApi
+namespace MinhaApi.Services
+{
+    public interface IProdutoService
+    {
+        Produto GetProdutoById(int id);
+    }
+
+
+    public class ProdutoService : IProdutoService
+    {
+        // Implementação fictícia
+        public Produto GetProdutoById(int id)
+        {
+            // Lógica para obter o produto pelo ID
+            return new Produto { Id = id, Nome = "Produto Exemplo" };
+        }
+    }
+}
+Modelo de Produto:
+
+// Projeto principal: MinhaApi
+namespace MinhaApi.Models
+{
+    public class Produto
+    {
+        public int Id { get; set; }
+        public string Nome { get; set; }
+    }
+}
+
+
+Escrevendo o Teste Unitário
+Agora vamos escrever um teste unitário para o método GetProduto do controlador ProdutosController.
+
+Teste do Controlador de Produtos:
+
+// Projeto de teste: MinhaApi.Tests
+using MinhaApi.Controllers;
+using MinhaApi.Models;
+using MinhaApi.Services;
+using Moq;
+using Xunit;
+using Microsoft.AspNetCore.Mvc;
+
+
+namespace MinhaApi.Tests
+{
+    public class ProdutosControllerTests
+    {
+        [Fact]
+        public void GetProduto_RetornaProdutoCorreto_QuandoIdValido()
+        {
+            // Arrange
+            var mockService = new Mock<IProdutoService>();
+            mockService.Setup(service => service.GetProdutoById(1))
+                       .Returns(new Produto { Id = 1, Nome = "Produto Teste" });
+
+
+            var controller = new ProdutosController(mockService.Object);
+
+
+            // Act
+            var result = controller.GetProduto(1) as OkObjectResult;
+
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(200, result.StatusCode);
+            var produto = result.Value as Produto;
+            Assert.NotNull(produto);
+            Assert.Equal(1, produto.Id);
+            Assert.Equal("Produto Teste", produto.Nome);
+        }
+
+
+        [Fact]
+        public void GetProduto_RetornaNotFound_QuandoIdInvalido()
+        {
+            // Arrange
+            var mockService = new Mock<IProdutoService>();
+            mockService.Setup(service => service.GetProdutoById(2))
+                       .Returns((Produto)null);
+
+
+            var controller = new ProdutosController(mockService.Object);
+
+
+            // Act
+            var result = controller.GetProduto(2);
+
+
+            // Assert
+            Assert.IsType<NotFoundResult>(result);
+        }
+    }
+}
+Entendendo os Testes
+Configurando o Mock do Serviço: Usamos Moq para criar um mock do IProdutoService. Configuramos o mock para retornar um produto específico quando o método GetProdutoById é chamado com um ID válido.
+Criando o Controlador: Injetamos o mock do serviço no controlador ProdutosController.
+Executando o Teste:
+No primeiro teste, verificamos se a resposta é do tipo OkObjectResult e se contém o produto correto.
+No segundo teste, verificamos se a resposta é NotFound quando um ID inválido é passado.
+Executando os Testes
+Para executar os testes, você pode usar a janela "Test Explorer" no Visual Studio:
+
+Abra "Test Explorer" (menu "Test" > "Test Explorer").
+Clique em "Run All" para executar todos os testes no projeto.

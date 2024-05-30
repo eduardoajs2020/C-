@@ -1,0 +1,71 @@
+Criando uma Migration em .NET C# com Entity Framework Core
+#.NET Core#Banco de dados relacional
+28/05/2024 17:46
+Brasil
+Leila Gama
+
+Boa noite!
+
+O Entity Framework Core (EF Core) é um ORM (Object-Relational Mapper) nos permite trabalhar com um banco de dados usando objetos do .NET. Um dos recursos poderosos do EF Core é a capacidade de criar e aplicar migrações para gerenciar a evolução do esquema do banco de dados de maneira controlada.
+
+Passo 1: Configurando o Projeto
+Instalar Pacotes NuGet: Para começar, você precisa adicionar os pacotes NuGet necessários ao seu projeto:
+dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+Configurar o Contexto do Banco de Dados: Crie uma classe que herda de DbContext e defina as DbSet para suas entidades.
+using Microsoft.EntityFrameworkCore;
+
+public class ApplicationDbContext : DbContext
+{
+    public DbSet<Produto> Produtos { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlServer("YourConnectionStringHere");
+    }
+}
+
+public class Produto
+{
+    public int Id { get; set; }
+    public string Nome { get; set; }
+    public decimal Preco { get; set; }
+}
+Passo 2: Criando a Primeira Migração
+Para criar uma migração inicial, execute o seguinte comando no console do Gerenciador de Pacotes ou no terminal:
+
+dotnet ef migrations add InitialCreate
+Isso gera uma pasta Migrations no seu projeto com uma classe de migração. Essa classe contém o código necessário para criar o esquema inicial do banco de dados.
+
+Passo 3: Aplicando a Migração
+Para aplicar a migração e atualizar o banco de dados, use o comando:
+
+dotnet ef database update
+Esse comando aplica a migração mais recente ao banco de dados.
+
+Passo 4: Adicionando uma Nova Migração
+Suponha que você queira adicionar uma nova propriedade Descricao à entidade Produto. Primeiro, modifique a classe Produto:
+
+public class Produto
+{
+    public int Id { get; set; }
+    public string Nome { get; set; }
+    public decimal Preco { get; set; }
+    public string Descricao { get; set; } // Nova propriedade
+}
+Em seguida, crie uma nova migração:
+
+dotnet ef migrations add AddDescricaoToProduto
+E, novamente, atualize o banco de dados:
+
+dotnet ef database update
+Passo 5: Revertendo uma Migração
+Se precisar reverter a última migração, você pode usar:
+
+dotnet ef database update LastGoodMigration
+Onde LastGoodMigration é o nome da migração anterior àquela que você deseja reverter.
+
+
+
+O uso de migrações com o Entity Framework Core em um projeto .NET C# facilita a manutenção do esquema do banco de dados, garantindo que ele esteja sempre sincronizado com as mudanças no modelo de dados da aplicação. 

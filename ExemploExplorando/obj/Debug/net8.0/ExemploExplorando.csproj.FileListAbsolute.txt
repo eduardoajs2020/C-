@@ -13,3 +13,6 @@ C:\PROJETOS DEV\C#\ExemploExplorando\obj\Debug\net8.0\refint\ExemploExplorando.d
 C:\PROJETOS DEV\C#\ExemploExplorando\obj\Debug\net8.0\ExemploExplorando.pdb
 C:\PROJETOS DEV\C#\ExemploExplorando\obj\Debug\net8.0\ExemploExplorando.genruntimeconfig.cache
 C:\PROJETOS DEV\C#\ExemploExplorando\obj\Debug\net8.0\ref\ExemploExplorando.dll
+C:\PROJETOS DEV\C#\ExemploExplorando\obj\Debug\net8.0\ExemploExplorando.csproj.AssemblyReference.cache
+C:\PROJETOS DEV\C#\ExemploExplorando\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\PROJETOS DEV\C#\ExemploExplorando\obj\Debug\net8.0\ExemploExplorando.csproj.CopyComplete

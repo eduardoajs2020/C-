@@ -4,7 +4,23 @@ dotnet new console //cria novo programa de terminal
 
 dotnet run     //roda o programa .net c#
 
+dotnet watch run     //roda o programa .net c#
 
+Entity Framework:
+
+instalar o pacote NuGet Microsoft.EntityFrameworkCore.Tools: dotnet add package Microsoft.EntityFrameworkCore
+
+dotnet-ef migrations add InitialCreateOrganizador //Cria o Banco de dados
+
+dotnet-ef migrations add CriacaoTabelaContato //Cria tabela Bd 
+
+dotnet-ef database update //Sobe a tabela no sqlServer
+
+"ConnectionStrings": {
+    "ConexaoPadrao": "Server=localhost\\sqlexpress; Initial Catalog=Organizador; Integrated Security=True;TrustServerCertificate=True;"
+  }
+
+https://github.com/eduardoajs2020/trilha-net-api-desafio
 
 
 ```bash
@@ -13,4 +29,36 @@ dotnet build
 dotnet run
 ```
 
+
+Comandos Básicos do dotnet:
+
+O dotnet oferece uma variedade de comandos para auxiliar no desenvolvimento de aplicações C#. Abaixo, listo alguns dos comandos mais utilizados:
+
+Gerenciamento de Projetos:
+
+    dotnet new: Cria novos projetos do .NET, como bibliotecas, aplicativos de console, web e muito mais.
+    dotnet restore: Restaura as dependências de pacotes NuGet necessárias para o seu projeto.
+    dotnet build: Compila o código C# do seu projeto em um executável ou biblioteca.
+    dotnet run: Executa o aplicativo C# compilado.
+    dotnet publish: Publica o aplicativo C# para um local específico, como um diretório local ou um servidor web.
+    dotnet test: Executa os testes unitários do seu projeto C#.
+
+Gerenciamento de Dependências:
+
+    dotnet add package: Adiciona um pacote NuGet ao seu projeto.
+    dotnet remove package: Remove um pacote NuGet do seu projeto.
+    dotnet list package: Lista os pacotes NuGet instalados em seu projeto.
+
+Gerenciamento de SDK e Runtime:
+
+    dotnet sdk check: Verifica se as versões do SDK e do Runtime do .NET estão atualizadas.
+    dotnet sdk install: Instala uma versão específica do SDK do .NET.
+    dotnet runtime install: Instala uma versão específica do Runtime do .NET.
+
+Outros Comandos Úteis:
+
+    dotnet help: Mostra informações de ajuda para um comando específico.
+    dotnet publish-local: Publica o aplicativo C# em um diretório local para depuração.
+    dotnet publish-web: Publica o aplicativo C# em um servidor web local para teste.
+    dotnet clean: Limpa os arquivos intermediários gerados durante a compilação.
 
