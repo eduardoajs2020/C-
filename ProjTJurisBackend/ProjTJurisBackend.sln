@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjTJurisBackend", "ProjTJurisBackend\ProjTJurisBackend.csproj", "{AFC2358A-8158-403C-805B-7244446A0BE1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjTJurisBackendTest", "ProjTJurisBackendTest\ProjTJurisBackendTest.csproj", "{DC75716D-0AA6-42AE-8D26-0CFBC546FC32}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AFC2358A-8158-403C-805B-7244446A0BE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFC2358A-8158-403C-805B-7244446A0BE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFC2358A-8158-403C-805B-7244446A0BE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFC2358A-8158-403C-805B-7244446A0BE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC75716D-0AA6-42AE-8D26-0CFBC546FC32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC75716D-0AA6-42AE-8D26-0CFBC546FC32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC75716D-0AA6-42AE-8D26-0CFBC546FC32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC75716D-0AA6-42AE-8D26-0CFBC546FC32}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {69E13363-9116-45C6-8EDA-86A426E5F055}
+	EndGlobalSection
+EndGlobal
