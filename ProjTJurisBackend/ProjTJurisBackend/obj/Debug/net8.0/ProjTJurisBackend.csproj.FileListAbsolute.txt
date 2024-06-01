@@ -24,3 +24,6 @@ C:\PROJETOS DEV\C#\ProjTJurisBackend\ProjTJurisBackend\obj\Debug\net8.0\refint\P
 C:\PROJETOS DEV\C#\ProjTJurisBackend\ProjTJurisBackend\obj\Debug\net8.0\ProjTJurisBackend.pdb
 C:\PROJETOS DEV\C#\ProjTJurisBackend\ProjTJurisBackend\obj\Debug\net8.0\ProjTJurisBackend.genruntimeconfig.cache
 C:\PROJETOS DEV\C#\ProjTJurisBackend\ProjTJurisBackend\obj\Debug\net8.0\ref\ProjTJurisBackend.dll
+C:\PROJETOS DEV\C#\ProjTJurisBackend\ProjTJurisBackend\bin\Debug\net8.0\GenerativeAI.dll
+C:\PROJETOS DEV\C#\ProjTJurisBackend\ProjTJurisBackend\obj\Debug\net8.0\ProjTJurisBackend.csproj.AssemblyReference.cache
+C:\PROJETOS DEV\C#\ProjTJurisBackend\ProjTJurisBackend\obj\Debug\net8.0\ProjTJurisBackend.csproj.CopyComplete

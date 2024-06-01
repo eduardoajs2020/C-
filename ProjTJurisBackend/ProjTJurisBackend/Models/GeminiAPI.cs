@@ -28,7 +28,7 @@ namespace ProjTJurisBackend.Models
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
 
             // Crie o corpo da solicitação JSON
-            string requestBody = "{ \"text\": \"Olá, mundo!\" }";
+            string requestBody = "{ \"text\": \"Olá, mundo 2!\" }";
 
             // Defina o tipo de conteúdo da solicitação como JSON
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
