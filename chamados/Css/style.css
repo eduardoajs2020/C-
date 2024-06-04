@@ -1,0 +1,104 @@
+/* style.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #000099;
+    color: white;
+    text-align: center;
+    padding: 1em 0;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin: 0;
+}
+
+.chamado-form,
+#fecharChamadoForm {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+textarea {
+    height: 100px;
+}
+
+button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #000099;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.success-message {
+    margin: 20px 0;
+    padding: 10px;
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+#chamadosList {
+    margin-top: 20px;
+}
+
+#chamadosList h2 {
+    margin-top: 0;
+}
+
+.chamado-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.chamado-item .numero {
+    font-weight: bold;
+}
+
+.chamado-item .assunto {
+    font-style: italic;
+}
+
+.chamado-item .data {
+    color: #555;
+}
