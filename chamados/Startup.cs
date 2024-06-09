@@ -20,7 +20,7 @@ namespace SistemaGestaoChamados
             {
                 options.AddPolicy("AllowAllOrigins", builder =>
                 {
-                    builder.WithOrigins("http://localhost:1691", "http://localhost:5208", "*")
+                    builder.WithOrigins("http://localhost:1691", "http://localhost:5274", "*")
                            .AllowAnyOrigin()  // Allow requests from any origin (Insecure)
                            .AllowAnyMethod()  // Allow any HTTP method
                            .AllowAnyHeader(); // Allow any request header

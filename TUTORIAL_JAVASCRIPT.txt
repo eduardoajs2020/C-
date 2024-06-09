@@ -1,0 +1,221 @@
+Claro, vou explicar o código refatorado passo a passo. Esse código tem como objetivo principal gerenciar "chamados" (provavelmente tickets ou issues) através de uma interface web, onde é possível abrir, fechar e listar chamados.
+
+### Constantes e Configurações Iniciais
+```javascript
+const backendUrl = 'http://localhost:5208';
+```
+Define a URL base do backend onde as requisições serão enviadas.
+
+### Função `sendRequest`
+```javascript
+async function sendRequest(url, options) {
+    try {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || JSON.stringify(errorData));
+        }
+        return response.headers.get('Content-Type').includes('application/json') ? response.json() : response.text();
+    } catch (error) {
+        console.error('Erro:', error);
+        throw error;
+    }
+}
+```
+1. **Envia uma requisição HTTP** para a URL fornecida com as opções especificadas.
+2. **Verifica se a resposta foi bem-sucedida** (`response.ok`). Se não for, lança um erro com a mensagem retornada.
+3. **Retorna o corpo da resposta** como JSON ou texto, dependendo do tipo de conteúdo.
+
+### Funções de Mensagens
+```javascript
+function showSuccessMessage(containerId, message) {
+    let successMessage = document.createElement('div');
+    successMessage.classList.add('success-message');
+    successMessage.textContent = message;
+    document.getElementById(containerId).appendChild(successMessage);
+}
+
+function showErrorMessage(containerId, error) {
+    let errorMessage = document.createElement('div');
+    errorMessage.classList.add('error-message');
+    errorMessage.textContent = 'Erro: ' + error;
+    document.getElementById(containerId).appendChild(errorMessage);
+}
+```
+- **showSuccessMessage**: Cria e exibe uma mensagem de sucesso em um contêiner específico.
+- **showErrorMessage**: Cria e exibe uma mensagem de erro em um contêiner específico.
+
+### Função `abrirChamado`
+```javascript
+async function abrirChamado(numero, assunto, descricao) {
+    try {
+        const data = await sendRequest(`${backendUrl}/api/chamados/abrir`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ numero: parseInt(numero), assunto, descricao })
+        });
+        console.log(data);
+        showSuccessMessage('chamadoSuccessMessage', typeof data === 'string' ? data : data.message || 'Chamado aberto com sucesso.');
+
+        // Limpar os campos do formulário
+        document.getElementById('numeroInput').value = '';
+        document.getElementById('assuntoInput').value = '';
+        document.getElementById('descricaoInput').value = '';
+
+        listarChamados();
+    } catch (error) {
+        showErrorMessage('chamadoErrorMessage', error);
+    }
+}
+```
+1. **Envia uma requisição POST** para abrir um chamado com os dados fornecidos.
+2. **Exibe uma mensagem de sucesso** ou erro com base na resposta.
+3. **Limpa os campos do formulário** após a abertura do chamado.
+4. **Atualiza a lista de chamados** chamando a função `listarChamados`.
+
+### Evento de Submissão do Formulário de Abrir Chamado
+```javascript
+document.getElementById('chamadoForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    let numero = document.getElementById('numeroInput').value;
+    let assunto = document.getElementById('assuntoInput').value;
+    let descricao = document.getElementById('descricaoInput').value;
+
+    if (!assunto || !descricao) {
+        alert('Os campos "assunto" e "descricao" são obrigatórios.');
+        return;
+    }
+
+    abrirChamado(numero, assunto, descricao);
+});
+```
+1. **Intercepta o envio do formulário**.
+2. **Coleta os dados** do formulário.
+3. **Valida os campos obrigatórios**.
+4. **Chama a função `abrirChamado`** com os dados coletados.
+
+### Função `fecharChamado`
+```javascript
+async function fecharChamado(numero) {
+    try {
+        const data = await sendRequest(`${backendUrl}/api/chamados/fechar/${numero}`, { method: 'POST' });
+        console.log(data);
+        showSuccessMessage('fecharChamadoMessage', 'Chamado fechado com sucesso.');
+
+        // Limpar o campo do formulário
+        document.getElementById('numeroFecharInput').value = '';
+
+        listarChamados();
+    } catch (error) {
+        showErrorMessage('fecharChamadoErrorMessage', error);
+    }
+}
+```
+1. **Envia uma requisição POST** para fechar um chamado específico.
+2. **Exibe uma mensagem de sucesso** ou erro com base na resposta.
+3. **Limpa o campo do formulário** após fechar o chamado.
+4. **Atualiza a lista de chamados** chamando a função `listarChamados`.
+
+### Evento de Submissão do Formulário de Fechar Chamado
+```javascript
+document.getElementById('fecharChamadoForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    let numeroFechar = document.getElementById('numeroFecharInput').value;
+    fecharChamado(numeroFechar);
+});
+```
+1. **Intercepta o envio do formulário**.
+2. **Coleta o número do chamado** a ser fechado.
+3. **Chama a função `fecharChamado`** com o número coletado.
+
+### Função `listarChamados`
+```javascript
+async function listarChamados() {
+    try {
+        const data = await sendRequest(`${backendUrl}/api/chamados/listar`);
+        console.log(data);
+        displayChamados(data);
+    } catch (error) {
+        showErrorMessage('chamadosErrorMessage', error);
+    }
+}
+```
+1. **Envia uma requisição GET** para listar todos os chamados.
+2. **Exibe a lista de chamados** chamando a função `displayChamados`.
+3. **Exibe uma mensagem de erro** se a requisição falhar.
+
+### Função `generateTableHTML`
+```javascript
+function generateTableHTML(chamados) {
+    let html = '<table>';
+    html += '<tr><th>Número</th><th>Assunto</th><th>Descrição</th><th>Data Abertura</th><th>Data Fechamento</th><th>Status</th></tr>';
+
+    chamados.forEach(chamado => {
+        html += `<tr>
+            <td>${chamado.numero}</td>
+            <td>${chamado.assunto}</td>
+            <td>${chamado.descricao}</td>
+            <td>${chamado.dataAbertura}</td>
+            <td>${chamado.dataFechamento ? chamado.dataFechamento : 'N/A'}</td>
+            <td>${chamado.status}</td>
+        </tr>`;
+    });
+
+    html += '</table>';
+    return html;
+}
+```
+1. **Gera o HTML** de uma tabela para os chamados fornecidos.
+
+### Função `displayChamados`
+```javascript
+function displayChamados(data) {
+    let chamadosList = document.getElementById('chamadosList');
+    chamadosList.innerHTML = '';
+
+    // Exibir chamados abertos
+    if (data.chamadosAbertos && data.chamadosAbertos.length > 0) {
+        let abertosHeader = document.createElement('h2');
+        abertosHeader.textContent = 'Chamados Abertos';
+        chamadosList.appendChild(abertosHeader);
+
+        let abertosTable = generateTableHTML(data.chamadosAbertos);
+        chamadosList.innerHTML += abertosTable;
+    } else {
+        let noChamadosAbertos = document.createElement('p');
+        noChamadosAbertos.textContent = 'Nenhum chamado aberto.';
+        chamadosList.appendChild(noChamadosAbertos);
+    }
+
+    // Exibir chamados fechados
+    if (data.chamadosFechados && data.chamadosFechados.length > 0) {
+        let fechadosHeader = document.createElement('h2');
+        fechadosHeader.textContent = 'Chamados Fechados';
+        chamadosList.appendChild(fechadosHeader);
+
+        let fechadosTable = generateTableHTML(data.chamadosFechados);
+        chamadosList.innerHTML += fechadosTable;
+    } else {
+        let noChamadosFechados = document.createElement('p');
+        noChamadosFechados.textContent = 'Nenhum chamado fechado.';
+        chamadosList.appendChild(noChamadosFechados);
+    }
+}
+```
+1. **Exibe os chamados abertos** se existirem, gerando a tabela HTML correspondente.
+2. **Exibe os chamados fechados** se existirem, gerando a tabela HTML correspondente.
+3. **Mostra mensagens de "nenhum chamado"** se não houver chamados abertos ou fechados.
+
+### Inicialização
+```javascript
+listarChamados();
+```
+Chama a função `listarChamados` ao carregar a página para exibir a lista de chamados.
+
+---
+
+Essas etapas abrangem a lógica principal do código, permitindo abrir, fechar e listar chamados através de uma interface web.

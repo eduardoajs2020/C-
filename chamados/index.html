@@ -1,65 +1,52 @@
 <!DOCTYPE html>
-<html lang = "en">
-    
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Gestão de Chamados</title>
-    <link href="css/style.css" rel="stylesheet" type="text/css">  
-</head>
-
-<body>
-    <div class="header">
-        <h1>Sistema de Gestão de Chamados</h1>
-    </div>
+    <link rel="stylesheet" type="text/css" href="Css/style.css"  /> 
+    <title>Gerenciamento de Chamados</title>
+    </head>
     
-<div class="container">
-    <!-- Formulário para abrir chamado -->
-    <form id="chamadoForm" class="chamado-form">
+    <body>
+        <header class="header">
+            <h1>Gerenciamento de Chamados</h1>
+        </header>
+        
+    <div class="container">
 
-        <label for="numeroInput">Número:</label>
-        <input type="text" id="numeroInput" required>
-        <br><br>
-
-        <label for="assuntoInput">Assunto:</label>
-        <input type="text" id="assuntoInput" required>
-        <br><br>
-
-        <label for="descricaoInput">Descrição:</label>
-        <textarea type="text" id="descricaoInput" required></textarea>
-        <br><br>
-
-        <button type="submit">Abrir Chamado</button>
-        <br><br>
-    </form>
-
-    
-
-    <!-- Mensagem de sucesso -->
-    <div id="chamadoSuccessMessage"></div>
-    <div id="chamadoErrorMessage"></div>
-
-    <!-- Formulário para fechar chamado -->
-    <form id="fecharChamadoForm">
-        <br><br>
-        <label for="numeroFecharInput">Número do Chamado:</label>
-        <input type="text" id="numeroFecharInput" required>
-        <br><br>
-        <button type="submit">Fechar Chamado</button>
-    </form>
-
-    <!-- Mensagem de sucesso -->
-    <div id="fecharChamadoMessage"></div>
-
-   
-
-    <!-- Lista de chamados -->
-    <div id="chamadosList">  
+        <!-- Formulário para abrir chamado -->
+        <h2>Abrir Chamado</h2>
+        <form id="chamadoForm">
+            <label for="numeroInput">Número:</label>
+            <input type="text" id="numeroInput" required><br>
+            <label for="assuntoInput">Assunto:</label>
+            <input type="text" id="assuntoInput" required><br>
+            <label for="descricaoInput">Descrição:</label>
+            <textarea id="descricaoInput" required></textarea><br>
+            <button type="submit">Abrir Chamado</button>
+        </form>
+        <div id="chamadoSuccessMessage"></div>
+        <div id="chamadoErrorMessage"></div>
+        
+        <!-- Formulário para fechar chamado -->
+        <h2>Fechar Chamado</h2>
+        <form id="fecharChamadoForm">
+            <label for="numeroFecharInput">Número:</label>
+            <input type="text" id="numeroFecharInput" required><br>
+            <button type="submit">Fechar Chamado</button>
+        </form>
+        <div id="fecharChamadoMessage"></div>
+        <div id="fecharChamadoErrorMessage"></div>
+        
+        <!-- Lista de chamados -->
         <h2>Lista de Chamados</h2>
+        <div id="chamadosList"></div>
+
     </div>
+        
+        <script src="script.js"></script>
 
-</div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+        </body>
+        
+        </html>

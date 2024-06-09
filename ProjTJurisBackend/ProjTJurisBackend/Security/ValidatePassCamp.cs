@@ -26,8 +26,8 @@ namespace ProjTJurisBackend.Security
             temLetraMinuscula = senha.Any(char.IsLower);
 
             // Verificando se a senha contém sequências comuns
-            string[] sequenciasComuns = { "123456", "abcdef" };
-            if (sequenciasComuns.Any(s => senha.Contains(s)))
+            string[] sequenciasComuns = ["123456", "abcdef"];
+            if (NewMethod(senha, sequenciasComuns))
                 return "Sua senha contem uma sequencia comum. Tente uma senha mais complexa.";
 
             // Verificando se a senha contém palavras comuns
@@ -43,6 +43,11 @@ namespace ProjTJurisBackend.Security
                 return "Sua senha atende aos requisitos de seguranca. Parabens!";
             else
                 return "Sua senha nao atende aos requisitos de seguranca.";
+        }
+
+        private static bool NewMethod(string senha, string[] sequenciasComuns)
+        {
+            return sequenciasComuns.Any(s => senha.Contains(s));
         }
 
         static void Main(string[] args)

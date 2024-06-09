@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='css/style.css'>
+    
+</head>
+<body>
+    <h1>Olá, esta é a interface web para testes do T-Juris</h1>
+    <div class="container">
+        <div class="principal">
+
+            <h2>Processos Cadastrados</h2>
+
+            <form id="processoForm">
+                <label for="numeroInput">Número:</label>
+                <input type="text" id="numeroInput" required><br><br>
+
+                <label for="assuntoInput">Assunto:</label>
+                <input type="text" id="assuntoInput" required><br><br>
+
+                <label for="descricaoInput">Descrição:</label>
+                <textarea id="descricaoInput" required></textarea><br><br>
+
+                <button type="submit">Abrir Processo</button><br>
+            </form>
+
+            <!-- Formulário para fechar chamado -->
+            <h2>Baixar Processo</h2>
+            <form id="fecharProcessoForm">
+                <label for="numeroFecharInput">Número:</label>
+                <input type="text" id="numeroFecharInput" required><br><br>
+
+                <button type="submit">Fechar Processo</button>
+            </form>
+
+            <div id="fecharProcessoMessage"></div>
+            <div id="fecharProcessoErrorMessage"></div>
+            
+            <!-- Lista de chamados -->
+            <h2>Lista de Processos</h2>
+            <div id="processosList"></div>
+        </div>
+
+    </div>
+
+    <script src='script.js'></script>
+</body>
+</html>

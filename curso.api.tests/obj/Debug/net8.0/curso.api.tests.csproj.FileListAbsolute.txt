@@ -1,0 +1,6 @@
+C:\PROJETOS DEV\C#\curso.api.tests\obj\Debug\net8.0\curso.api.tests.csproj.AssemblyReference.cache
+C:\PROJETOS DEV\C#\curso.api.tests\obj\Debug\net8.0\curso.api.tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\PROJETOS DEV\C#\curso.api.tests\obj\Debug\net8.0\curso.api.tests.AssemblyInfoInputs.cache
+C:\PROJETOS DEV\C#\curso.api.tests\obj\Debug\net8.0\curso.api.tests.AssemblyInfo.cs
+C:\PROJETOS DEV\C#\curso.api.tests\obj\Debug\net8.0\curso.api.tests.csproj.CoreCompileInputs.cache
+C:\PROJETOS DEV\C#\curso.api.tests\obj\Debug\net8.0\curso.api.tests.sourcelink.json

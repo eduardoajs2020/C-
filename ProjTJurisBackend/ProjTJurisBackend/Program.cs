@@ -1,6 +1,23 @@
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+using System;
 
-app.MapGet("/", () => "Hello World!");
+namespace ProjTJurisBackend
+{
+public static class Program
+{
+  
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
 
-app.Run();
+                    webBuilder.UseStartup<Startup>();
+
+
+                });
+        }
+    }
+
+}

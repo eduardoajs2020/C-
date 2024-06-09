@@ -1,9 +1,6 @@
-C:\PROJETOS DEV\C#\chamados\obj\Debug\net8.0\chamados.GeneratedMSBuildEditorConfig.editorconfig
-C:\PROJETOS DEV\C#\chamados\obj\Debug\net8.0\chamados.AssemblyInfoInputs.cache
-C:\PROJETOS DEV\C#\chamados\obj\Debug\net8.0\chamados.AssemblyInfo.cs
-C:\PROJETOS DEV\C#\chamados\obj\Debug\net8.0\chamados.csproj.CoreCompileInputs.cache
-C:\PROJETOS DEV\C#\chamados\obj\Debug\net8.0\chamados.MvcApplicationPartsAssemblyInfo.cache
-C:\PROJETOS DEV\C#\chamados\obj\Debug\net8.0\chamados.sourcelink.json
+<<<<<<< HEAD
+=======
+>>>>>>> b585b51 (Implementation atualized)
 C:\PROJETOS DEV\C#\chamados\bin\Debug\net8.0\appsettings.Development.json
 C:\PROJETOS DEV\C#\chamados\bin\Debug\net8.0\appsettings.json
 C:\PROJETOS DEV\C#\chamados\bin\Debug\net8.0\chamados.exe
@@ -11,6 +8,12 @@ C:\PROJETOS DEV\C#\chamados\bin\Debug\net8.0\chamados.deps.json
 C:\PROJETOS DEV\C#\chamados\bin\Debug\net8.0\chamados.runtimeconfig.json
 C:\PROJETOS DEV\C#\chamados\bin\Debug\net8.0\chamados.dll
 C:\PROJETOS DEV\C#\chamados\bin\Debug\net8.0\chamados.pdb
+C:\PROJETOS DEV\C#\chamados\obj\Debug\net8.0\chamados.GeneratedMSBuildEditorConfig.editorconfig
+C:\PROJETOS DEV\C#\chamados\obj\Debug\net8.0\chamados.AssemblyInfoInputs.cache
+C:\PROJETOS DEV\C#\chamados\obj\Debug\net8.0\chamados.AssemblyInfo.cs
+C:\PROJETOS DEV\C#\chamados\obj\Debug\net8.0\chamados.csproj.CoreCompileInputs.cache
+C:\PROJETOS DEV\C#\chamados\obj\Debug\net8.0\chamados.MvcApplicationPartsAssemblyInfo.cache
+C:\PROJETOS DEV\C#\chamados\obj\Debug\net8.0\chamados.sourcelink.json
 C:\PROJETOS DEV\C#\chamados\obj\Debug\net8.0\staticwebassets.build.json
 C:\PROJETOS DEV\C#\chamados\obj\Debug\net8.0\staticwebassets.development.json
 C:\PROJETOS DEV\C#\chamados\obj\Debug\net8.0\staticwebassets\msbuild.chamados.Microsoft.AspNetCore.StaticWebAssets.props

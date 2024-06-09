@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ProjTJurisBackend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+093d5ca2934898d22835d1c78ff37f1d34a7aae5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+afc971c404468a66888c7b0668c44b105c0a2b63")]
 [assembly: System.Reflection.AssemblyProductAttribute("ProjTJurisBackend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ProjTJurisBackend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

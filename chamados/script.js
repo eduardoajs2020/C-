@@ -1,54 +1,62 @@
-const backendUrl = 'http://localhost:5208';
+const backendUrl = 'http://localhost:5274';
 
+// Função para enviar requisição HTTP
+async function sendRequest(url, options) {
+    try {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || JSON.stringify(errorData));
+        }
+        return response.headers.get('Content-Type').includes('application/json') ? response.json() : response.text();
+    } catch (error) {
+        console.error('Erro:', error);
+        throw error;
+    }
+}
+
+// Função para exibir mensagens de sucesso
+function showSuccessMessage(containerId, message) {
+    let successMessage = document.createElement('div');
+    successMessage.classList.add('success-message');
+    successMessage.textContent = message;
+    document.getElementById(containerId).appendChild(successMessage);
+}
+
+// Função para exibir mensagens de erro
+function showErrorMessage(containerId, error) {
+    let errorMessage = document.createElement('div');
+    errorMessage.classList.add('error-message');
+    errorMessage.textContent = 'Erro: ' + error;
+    document.getElementById(containerId).appendChild(errorMessage);
+}
 
 // Função para abrir chamado
-function abrirChamado(numero, assunto, descricao) {
-    fetch(`${backendUrl}/api/chamados/abrir`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ numero: parseInt(numero), assunto: assunto, descricao: descricao })
-    })
-    .then(response => {
-        if (!response.ok) {
-            return response.json().then(errorData => { throw new Error(JSON.stringify(errorData)); });
-        }
-       // Check response type (text or JSON)
-      if (response.headers.get('Content-Type').includes('application/json')) {
-        return response.json();  // Parse JSON response
-      } else {
-        return response.text();
-      }
-    })
-        
-    .then(data => {
+async function abrirChamado(numero, assunto, descricao) {
+    try {
+        const data = await sendRequest(`${backendUrl}/api/chamados/abrir`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ numero: parseInt(numero), assunto, descricao })
+        });
         console.log(data);
-      let successMessage = document.createElement('div');
-      successMessage.classList.add('success-message');
-      // Access data based on response type (text or object property)
-      successMessage.textContent = typeof data === 'string' ? data : data.message || 'Chamado aberto com sucesso.';
-      document.getElementById('chamadoSuccessMessage').appendChild(successMessage);
+        showSuccessMessage('chamadoSuccessMessage', typeof data === 'string' ? data : data.message || 'Chamado aberto com sucesso.');
 
         // Limpar os campos do formulário
         document.getElementById('numeroInput').value = '';
         document.getElementById('assuntoInput').value = '';
         document.getElementById('descricaoInput').value = '';
-        listarChamados();
-        alert(data);
-        
-        
-    })
-    .catch(error => {
-        console.error('Erro:', error);
-        let errorMessage = document.createElement('div');
-        errorMessage.classList.add('error-message');
-        errorMessage.textContent = 'Erro ao abrir chamado: ' + error;
-        document.getElementById('chamadoErrorMessage').appendChild(errorMessage);
-    });
 
-    // Evento de submissão do formulário de abrir chamado
-document.getElementById('chamadoForm').addEventListener('submit', function(event) {
+        listarChamados();
+    } catch (error) {
+        showErrorMessage('chamadoErrorMessage', error);
+    }
+}
+
+// Evento de submissão do formulário de abrir chamado
+document.getElementById('chamadoForm').addEventListener('submit', function (event) {
     event.preventDefault();
 
     let numero = document.getElementById('numeroInput').value;
@@ -63,139 +71,94 @@ document.getElementById('chamadoForm').addEventListener('submit', function(event
     abrirChamado(numero, assunto, descricao);
 });
 
-}
-
 // Função para fechar chamado
-function fecharChamado(numero) {
-    fetch(`${backendUrl}/api/chamados/fechar/${numero}`, {
-        method: 'POST'
-    })
-    .then(response => {
-        if (!response.ok) {
-            return response.json().then(errorData => { throw new Error(JSON.stringify(errorData)); });
-        }
-        return response.text();
-    })
-    .then(data => {
+async function fecharChamado(numero) {
+    try {
+        const data = await sendRequest(`${backendUrl}/api/chamados/fechar/${numero}`, { method: 'POST' });
         console.log(data);
-        let successMessage = document.createElement('div');
-        successMessage.classList.add('success-message');
-        successMessage.textContent = 'Chamado fechado com sucesso.';
-        document.getElementById('fecharChamadoMessage').appendChild(successMessage);
+        showSuccessMessage('fecharChamadoMessage', 'Chamado fechado com sucesso.');
 
         // Limpar o campo do formulário
         document.getElementById('numeroFecharInput').value = '';
 
-        // Atualizar a lista de chamados
         listarChamados();
-    })
-    .catch(error => {
-        console.error('Erro:', error);
-        let errorMessage = document.createElement('div');
-        errorMessage.classList.add('error-message');
-        errorMessage.textContent = 'Erro ao fechar chamado: ' + error;
-        document.getElementById('fecharChamadoErrorMessage').appendChild(errorMessage);
-    });
+    } catch (error) {
+        showErrorMessage('fecharChamadoErrorMessage', error);
+    }
 }
-
-// Função para listar chamados
-function listarChamados() {
-  fetch(`${backendUrl}/api/chamados/listar`)
-    .then(async (response) => {
-        if (!response.ok) {
-            const errorData = await response.json();
-            const errorMessage = errorData.message || 'Ocorreu um erro ao listar chamados.';
-            throw new Error(errorMessage);
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log(data);
-        let chamadosList = document.getElementById('chamadosList');
-        chamadosList.innerHTML = '';
-
-        // Exibir chamados abertos
-        if (typeof data.ChamadosAbertos !== 'undefined' && data.ChamadosAbertos.length > 0) {
-                    let abertosHeader = document.createElement('h2');
-                    abertosHeader.textContent = 'Chamados Abertos';
-                    chamadosList.appendChild(abertosHeader);
-
-        data.ChamadosAbertos.forEach(chamado => {
-                        let chamadoItem = document.createElement('div');
-                        chamadoItem.classList.add('chamado-item');
-                        let numero = document.createElement('span');
-                        numero.classList.add('numero');
-                        numero.textContent = 'Número: ' + chamado.numero;
-                        let assunto = document.createElement('div');
-                        assunto.classList.add('assunto');
-                        assunto.textContent = 'Assunto: ' + chamado.assunto;
-                        let dataAbertura = document.createElement('div');
-                        dataAbertura.classList.add('data');
-                        dataAbertura.textContent = 'Data Abertura: ' + chamado.dataAbertura;
-                        chamadoItem.appendChild(numero);
-                        chamadoItem.appendChild(assunto);
-                        chamadoItem.appendChild(dataAbertura);
-                        chamadosList.appendChild(chamadoItem);
-                    });
-                } else {
-                    let noChamadosAbertos = document.createElement('p');
-                    noChamadosAbertos.textContent = 'Nenhum chamado aberto.';
-                    chamadosList.appendChild(noChamadosAbertos);
-                }
-
-        // Exibir chamados fechados
-        if (typeof data.ChamadosFechados !== 'undefined' && data.ChamadosFechados.length > 0) {
-                    let fechadosHeader = document.createElement('h2');
-                    fechadosHeader.textContent = 'Chamados Fechados';
-                    chamadosList.appendChild(fechadosHeader);
-
-                    data.ChamadosFechados.forEach(chamado => {
-                        let chamadoItem = document.createElement('div');
-                        chamadoItem.classList.add('chamado-item');
-                        let numero = document.createElement('span');
-                        numero.classList.add('numero');
-                        numero.textContent = 'Número: ' + chamado.numero;
-                        let assunto = document.createElement('div');
-                        assunto.classList.add('assunto');
-                        assunto.textContent = 'Assunto: ' + chamado.assunto;
-                        let dataAbertura = document.createElement('div');
-                        dataAbertura.classList.add('data');
-                        dataAbertura.textContent = 'Data Abertura: ' + chamado.dataAbertura;
-                        let dataFechamento = document.createElement('div');
-                        dataFechamento.classList.add('data');
-                        dataFechamento.textContent = 'Data Fechamento: ' + chamado.dataFechamento;
-                        chamadoItem.appendChild(numero);
-                        chamadoItem.appendChild(assunto);
-                        chamadoItem.appendChild(dataAbertura);
-                        chamadoItem.appendChild(dataFechamento);
-                        chamadosList.appendChild(chamadoItem);
-                    });
-                } else {
-                    let noChamadosFechados = document.createElement('p');
-                    noChamadosFechados.textContent = 'Nenhum chamado fechado.';
-                    chamadosList.appendChild(noChamadosFechados);
-                }
-            })
-    .catch(error => {
-        console.error('Erro:', error);
-        let errorMessage = document.createElement('div');
-        errorMessage.classList.add('error-message');
-        errorMessage.textContent = 'Erro ao listar chamados: ' + error;
-        document.getElementById('chamadosErrorMessage').appendChild(errorMessage);
-    });
-}
-
 
 // Evento de submissão do formulário de fechar chamado
-document.getElementById('fecharChamadoForm').addEventListener('submit', function(event) {
+document.getElementById('fecharChamadoForm').addEventListener('submit', function (event) {
     event.preventDefault();
 
     let numeroFechar = document.getElementById('numeroFecharInput').value;
-
     fecharChamado(numeroFechar);
 });
 
+// Função para listar chamados
+async function listarChamados() {
+    try {
+        const data = await sendRequest(`${backendUrl}/api/chamados/listar`);
+        console.log(data);
+        displayChamados(data);
+    } catch (error) {
+        showErrorMessage('chamadosErrorMessage', error);
+    }
+}
+
+// Função para gerar o HTML da tabela
+function generateTableHTML(chamados) {
+    let html = '<table>';
+    html += '<tr><th>Número</th><th>Assunto</th><th>Descrição</th><th>Data Abertura</th><th>Data Fechamento</th><th>Status</th></tr>';
+
+    chamados.forEach(chamado => {
+        html += `<tr>
+            <td>${chamado.numero}</td>
+            <td>${chamado.assunto}</td>
+            <td>${chamado.descricao}</td>
+            <td>${chamado.dataAbertura}</td>
+            <td>${chamado.dataFechamento ? chamado.dataFechamento : 'N/A'}</td>
+            <td>${chamado.status}</td>
+        </tr>`;
+    });
+
+    html += '</table>';
+    return html;
+}
+
+// Função para exibir os chamados
+function displayChamados(data) {
+    let chamadosList = document.getElementById('chamadosList');
+    chamadosList.innerHTML = '';
+
+    // Exibir chamados abertos
+    if (data.chamadosAbertos && data.chamadosAbertos.length > 0) {
+        let abertosHeader = document.createElement('h2');
+        abertosHeader.textContent = 'Chamados Abertos';
+        chamadosList.appendChild(abertosHeader);
+
+        let abertosTable = generateTableHTML(data.chamadosAbertos);
+        chamadosList.innerHTML += abertosTable;
+    } else {
+        let noChamadosAbertos = document.createElement('p');
+        noChamadosAbertos.textContent = 'Nenhum chamado aberto.';
+        chamadosList.appendChild(noChamadosAbertos);
+    }
+
+    // Exibir chamados fechados
+    if (data.chamadosFechados && data.chamadosFechados.length > 0) {
+        let fechadosHeader = document.createElement('h2');
+        fechadosHeader.textContent = 'Chamados Fechados';
+        chamadosList.appendChild(fechadosHeader);
+
+        let fechadosTable = generateTableHTML(data.chamadosFechados);
+        chamadosList.innerHTML += fechadosTable;
+    } else {
+        let noChamadosFechados = document.createElement('p');
+        noChamadosFechados.textContent = 'Nenhum chamado fechado.';
+        chamadosList.appendChild(noChamadosFechados);
+    }
+}
+
 // Chamar a função para exibir a lista de chamados ao carregar a página
 listarChamados();
-
-
