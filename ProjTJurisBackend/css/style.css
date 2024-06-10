@@ -1,8 +1,8 @@
 body
 {
-    background-color: cornflowerblue;
+    background: url('../assets/img/fundo01.jpg');
 }
 h1, h2
 {
-    color: navy
+    color: #212;
 }

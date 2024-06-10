@@ -17,7 +17,7 @@ public class Startup
         {
             options.AddPolicy("AllowAllOrigins", builder =>
             {
-                builder.WithOrigins("http://localhost:32239", "http://localhost:5274", "*")
+                builder.WithOrigins("http://localhost:32239", "http://localhost:5025", "*")
                        .AllowAnyOrigin()  // Allow requests from any origin (Insecure)
                        .AllowAnyMethod()  // Allow any HTTP method
                        .AllowAnyHeader(); // Allow any request header

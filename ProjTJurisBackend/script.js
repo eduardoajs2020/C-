@@ -1,4 +1,4 @@
-const backendUrl = 'http://localhost:5274';
+const backendUrl = 'http://localhost:5025';
 
 // Função para enviar requisição HTTP
 async function sendRequest(url, options) {

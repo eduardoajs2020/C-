@@ -22,15 +22,13 @@ namespace ProjTJurisBackend.Controllers
                 {
                     return BadRequest("Os campos 'assunto' e 'descricao' são obrigatórios.");
                 }
-
-
                 processos.Add(processo);
                 processo.Status = "Aberto";
                 return Ok($"Chamado {processo.Numero} aberto com sucesso.");
             }
 
             [HttpPost("fechar/{numero}")]
-            public IActionResult FecharChamado(int numero)
+            public IActionResult FecharProcesso(int numero)
             {
                 var processo = processos.Find(p => p.Numero == numero);
                 if (processo != null)
